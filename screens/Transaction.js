@@ -8,6 +8,7 @@ import {
   ImageBackground,
   Image,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import * as Permissions from "expo-permissions";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -77,13 +78,21 @@ export default class TransactionScreen extends Component {
           var { bookName, studentName } = this.state;
           this.initiateBookIssue(bookId, studentId, bookName, studentName);
 
-           Alert.alert("Book issued to the student!");
+          // For Android users only
+          ToastAndroid.show("Book issued to the student!", ToastAndroid.SHORT);
+
+          // Alert.alert("Book issued to the student!");
         } else {
           var { bookName, studentName } = this.state;
           this.initiateBookReturn(bookId, studentId, bookName, studentName);
 
+          // For Android users only
+          ToastAndroid.show(
+            "Book returned to the library!",
+            ToastAndroid.SHORT
+          );
 
-          Alert.alert("Book returned to the library!");
+          // Alert.alert("Book returned to the library!");
         }
       });
   };
@@ -231,7 +240,6 @@ export default class TransactionScreen extends Component {
             </TouchableOpacity>
           </View>
         </ImageBackground>
-     
     );
   }
 }
@@ -282,7 +290,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     fontSize: 18,
     backgroundColor: "#5653D4",
-    
     color: "#FFFFFF"
   },
   scanbutton: {
